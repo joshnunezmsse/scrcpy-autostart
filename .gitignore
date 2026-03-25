@@ -1,0 +1,21 @@
+# macOS System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might be created by the LaunchAgent
+/tmp/scrcpy-trigger.log
+/tmp/scrcpy-trigger.err
+
+# Local environment or IDE settings
+.vscode/
+.idea/
+*.swp
+*~
+
+# User-specific config (optional)
+# If you want to keep the repo generic, ignore the local config folder
+# ~/.config/scrcpy-autostart/
