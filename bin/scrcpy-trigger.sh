@@ -10,7 +10,7 @@ LAST_SERIAL=""
 
 find_binary() {
     if command -v "$1" >/dev/null 2>&1; then
-        echo "$(command -v "$1")"
+        command -v "$1"
     elif [ -f "/opt/homebrew/bin/$1" ]; then
         echo "/opt/homebrew/bin/$1"
     elif [ -f "/usr/local/bin/$1" ]; then
@@ -33,7 +33,7 @@ fi
 export ADB="$ADB_PATH"
 
 while true; do
-    if [ -f "$LOG_FILE" ] && [ $(stat -f%z "$LOG_FILE") -gt $MAX_LOG_SIZE ]; then
+    if [ -f "$LOG_FILE" ] && [ "$(stat -f%z "$LOG_FILE")" -gt "$MAX_LOG_SIZE" ]; then
         tail -n 100 "$LOG_FILE" > "$LOG_FILE.tmp" && mv "$LOG_FILE.tmp" "$LOG_FILE"
     fi
 
