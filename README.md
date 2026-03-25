@@ -47,7 +47,7 @@ If you prefer to install from a local clone of the repository:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/josh-scrcpy/scrcpy-autostart.git
+   git clone https://github.com/joshnunezmsse/scrcpy-autostart.git
    cd scrcpy-autostart
    ```
 2. Run the installer:
