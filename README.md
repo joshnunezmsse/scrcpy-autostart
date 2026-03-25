@@ -1,3 +1,7 @@
+![License](https://img.shields.io/github/license/joshnunezmsse/scrcpy-autostart)
+![Issues](https://img.shields.io/github/issues/joshnunezmsse/scrcpy-autostart)
+![Stars](https://img.shields.io/github/stars/joshnunezmsse/scrcpy-autostart?style=social)
+
 # scrcpy-autostart
 
 A lightweight macOS daemon that monitors for newly connected Android devices and automatically initiates a `scrcpy` session. This tool is designed for developers who want to streamline their workflow by instantly mirroring their device's screen upon connection.
