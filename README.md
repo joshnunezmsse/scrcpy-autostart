@@ -9,7 +9,7 @@ A lightweight macOS daemon that monitors for newly connected Android devices and
 You can install this tool by running the following command in your terminal:
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/josh-scrcpy/scrcpy-autostart/main/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/joshnunezmsse/scrcpy-autostart/main/install.sh)"
 ```
 
 This command will download and run the installer, which handles dependency checks and setup.
