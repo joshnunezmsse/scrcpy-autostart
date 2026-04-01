@@ -52,7 +52,7 @@ while true; do
         DISPLAY_NAME=${DEVICE_MODEL:-$CURRENT_SERIAL}
         echo "$(date): USB Device $DISPLAY_NAME ($CURRENT_SERIAL) detected." >> "$LOG_FILE"
         
-        LAUNCH_CMD="$SCRCPY_PATH -s $CURRENT_SERIAL $CUSTOM_ARGS --power-off-on-close"
+        LAUNCH_CMD="$SCRCPY_PATH -s $CURRENT_SERIAL $CUSTOM_ARGS"
         
         if [ "$AUTO_LAUNCH" = "true" ]; then
             $LAUNCH_CMD &
