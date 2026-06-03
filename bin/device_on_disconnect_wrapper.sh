@@ -5,6 +5,8 @@ set -x
 
 USER_SCRIPT="/data/local/tmp/device_on_disconnect.sh"
 
+# older version of android do not support pgrep
+# shellcheck disable=SC2009
 is_scrcpy_running() {
     ps -ef 2>/dev/null | grep "[s]crcpy" >/dev/null 2>&1 || \
     ps -A 2>/dev/null | grep "[s]crcpy" >/dev/null 2>&1 || \
@@ -12,7 +14,7 @@ is_scrcpy_running() {
 }
 
 # Give scrcpy up to 15 seconds to start
-for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+for _ in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15; do
     if is_scrcpy_running; then
         log -t ScrcpyAutostart "scrcpy session detected. Entering wait for disconnect state..."
         break
