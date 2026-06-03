@@ -4,4 +4,4 @@
 log -t ScrcpyAutostart "Executing device_on_disconnect.sh on device..."
 
 # Add any additional on-device cleanup commands here.
-# Example: settings put global stay_on_while_plugged_in 0
+# Example: cmd notification post -t "Scrcpy" "scrcpy_status" "Device disconnected from Mac"

@@ -7,4 +7,4 @@ set -x
 log -t ScrcpyAutostart "Executing device_on_connect.sh on device..."
 
 # Add any additional on-device setup commands here.
-# Example: settings put global stay_on_while_plugged_in 3
+# Example: am start -n com.example.app/.MainActivity
