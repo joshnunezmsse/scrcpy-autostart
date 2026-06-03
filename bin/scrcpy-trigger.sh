@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # --- CONFIGURATION ---
+APP_DIR="$HOME/Library/Application Support/scrcpy-autostart"
 CONFIG_DIR="$HOME/.config/scrcpy-autostart"
 CONFIG_FILE="$CONFIG_DIR/settings.conf"
 LOG_FILE="/tmp/scrcpy-trigger.log"
@@ -47,24 +48,40 @@ while true; do
     # Extract model (e.g., model:Pixel_9a -> Pixel_9a)
     DEVICE_MODEL=$(echo "$DEVICE_INFO" | grep -o "model:[^ ]*" | cut -d: -f2 | tr '_' ' ')
 
-    if [ -n "$CURRENT_SERIAL" ] && [ "$CURRENT_SERIAL" != "$LAST_SERIAL" ]; then
-        # Use Serial as fallback if Model extraction fails
-        DISPLAY_NAME=${DEVICE_MODEL:-$CURRENT_SERIAL}
-        echo "$(date): USB Device $DISPLAY_NAME ($CURRENT_SERIAL) detected." >> "$LOG_FILE"
-        
-        LAUNCH_CMD="$SCRCPY_PATH -s $CURRENT_SERIAL $CUSTOM_ARGS"
-        
-        if [ "$AUTO_LAUNCH" = "true" ]; then
-            $LAUNCH_CMD &
-        else
-            RESPONSE=$(osascript -e "display dialog \"Android device '$DISPLAY_NAME' detected. Control device from Mac?\" buttons {\"No\", \"Yes\"} default button \"Yes\" with icon caution")
-            if [ "$RESPONSE" = "button returned:Yes" ]; then
+    if [ "$CURRENT_SERIAL" != "$LAST_SERIAL" ]; then
+        # Handle Disconnect
+        if [ -n "$LAST_SERIAL" ]; then
+            echo "$(date): Device ($LAST_SERIAL) disconnected." >> "$LOG_FILE"
+            if [ -x "$CONFIG_DIR/host_on_disconnect.sh" ]; then
+                "$CONFIG_DIR/host_on_disconnect.sh" "$LAST_SERIAL" >> "$LOG_FILE" 2>&1 &
+            fi
+        fi
+
+        # Handle Connect
+        if [ -n "$CURRENT_SERIAL" ]; then
+            # Use Serial as fallback if Model extraction fails
+            DISPLAY_NAME=${DEVICE_MODEL:-$CURRENT_SERIAL}
+            echo "$(date): USB Device $DISPLAY_NAME ($CURRENT_SERIAL) detected." >> "$LOG_FILE"
+            
+            LAUNCH_CMD="$SCRCPY_PATH -s $CURRENT_SERIAL $CUSTOM_ARGS"
+            
+            if [ "$AUTO_LAUNCH" = "true" ]; then
+                if [ -x "$APP_DIR/on_connect_helper.sh" ]; then
+                    "$APP_DIR/on_connect_helper.sh" "$CURRENT_SERIAL" >> "$LOG_FILE" 2>&1 &
+                fi
                 $LAUNCH_CMD &
+            else
+                RESPONSE=$(osascript -e "display dialog \"Android device '$DISPLAY_NAME' detected. Control device from Mac?\" buttons {\"No\", \"Yes\"} default button \"Yes\" with icon caution")
+                if [ "$RESPONSE" = "button returned:Yes" ]; then
+                    if [ -x "$APP_DIR/on_connect_helper.sh" ]; then
+                        "$APP_DIR/on_connect_helper.sh" "$CURRENT_SERIAL" >> "$LOG_FILE" 2>&1 &
+                    fi
+                    $LAUNCH_CMD &
+                fi
             fi
         fi
         LAST_SERIAL="$CURRENT_SERIAL"
     fi
 
-    [ -z "$CURRENT_SERIAL" ] && LAST_SERIAL=""
     sleep 3
 done
