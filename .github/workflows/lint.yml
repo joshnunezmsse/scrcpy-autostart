@@ -17,4 +17,10 @@ jobs:
         with:
           scandir: './bin'
           # Also check the install/uninstall scripts in the root
-          additional_files: 'install.sh uninstall.sh'
+          additional_files:
+            - 'install.sh'
+            - 'uninstall.sh'
+            - 'install-macos.sh'
+            - 'install-linux.sh'
+            - 'uninstall-macos.sh'
+            - 'uninstall-linux.sh'

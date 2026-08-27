@@ -1,3 +1,4 @@
+# macOS artifacts (DS_Store, etc.)
 # macOS System Files
 .DS_Store
 .AppleDouble

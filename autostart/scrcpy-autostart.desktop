@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=scrcpy-autostart
+Comment=Monitor for Android USB devices and launch scrcpy
+Exec=__HOME__/.local/share/scrcpy-autostart/scrcpy-daemon.sh
+Terminal=false
+X-GNOME-Autostart-enabled=true

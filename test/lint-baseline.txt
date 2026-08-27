@@ -1,0 +1,32 @@
+OK   bash -n      install.sh
+
+In install.sh line 42:
+    if command -v adb >/dev/null 2>&1; then echo "$(command -v adb)"
+                                                 ^-----------------^ SC2005 (style): Useless echo? Instead of 'echo $(cmd)', just use 'cmd'.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2005 -- Useless echo? Instead of 'echo $(...
+FAIL shellcheck   install.sh
+OK   bash -n      uninstall.sh
+
+In uninstall.sh line 19:
+read -p "Remove configuration files and this uninstaller? (y/n): " RM_ALL
+^--^ SC2162 (info): read without -r will mangle backslashes.
+
+For more information:
+  https://www.shellcheck.net/wiki/SC2162 -- read without -r will mangle backs...
+FAIL shellcheck   uninstall.sh
+OK   bash -n      bin/device_on_disconnect_wrapper.sh
+OK   shellcheck   bin/device_on_disconnect_wrapper.sh
+OK   bash -n      bin/on_connect_helper.sh
+OK   shellcheck   bin/on_connect_helper.sh
+OK   bash -n      bin/scrcpy-trigger.sh
+OK   shellcheck   bin/scrcpy-trigger.sh
+OK   bash -n      config/device_on_connect.sh
+OK   shellcheck   config/device_on_connect.sh
+OK   bash -n      config/device_on_disconnect.sh
+OK   shellcheck   config/device_on_disconnect.sh
+OK   bash -n      config/host_on_connect.sh
+OK   shellcheck   config/host_on_connect.sh
+OK   bash -n      config/host_on_disconnect.sh
+OK   shellcheck   config/host_on_disconnect.sh
